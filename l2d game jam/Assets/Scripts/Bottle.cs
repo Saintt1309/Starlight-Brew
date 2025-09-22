@@ -1,10 +1,18 @@
 using UnityEngine;
+using TMPro;
 
 public class Bottle : MonoBehaviour
 {
-    private static Bottle currentlySelectedBottle;
+    public static Bottle currentlySelectedBottle;
 
-    private bool isSelected = false;
+    public bool isSelected = false;
+    public TMP_Text selectedBottle;
+
+    void Start()
+    {
+        selectedBottle = GameObject.Find("selected bottle").GetComponent<TMP_Text>();
+    }
+    
 
     public void OnMouseDown()
     {
@@ -18,6 +26,8 @@ public class Bottle : MonoBehaviour
 
             Select();
             Debug.Log("Bottle selected");
+
+            selectedBottle.text = "Selected Bottle: " + gameObject.name;
         }
         else
         {
@@ -25,7 +35,7 @@ public class Bottle : MonoBehaviour
         }
     }
 
-    void Select()
+    public void Select()
     {
         isSelected = true;
         currentlySelectedBottle = this;
@@ -34,7 +44,7 @@ public class Bottle : MonoBehaviour
         GetComponent<Renderer>().material.color = Color.yellow;
     }
 
-    void Deselect()
+    public void Deselect()
     {
         isSelected = false;
 
