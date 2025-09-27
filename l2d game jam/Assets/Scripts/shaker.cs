@@ -6,11 +6,12 @@ public class Shaker : MonoBehaviour
 {
     private List<string> bottles = new List<string>();
     public TMP_Text shakerContentsText;
+    public TMP_Text mixedDrinkText;
 
     void Start()
     {
-        // Find the TMP text once at start
         shakerContentsText = GameObject.Find("shaker contents").GetComponent<TMP_Text>();
+        mixedDrinkText = GameObject.Find("mixed drink").GetComponent<TMP_Text>();
         contentsDisplay();
     }
 
@@ -18,7 +19,6 @@ public class Shaker : MonoBehaviour
     {
         Debug.Log("Shaker clicked");
 
-        // ✅ Use the static reference from Bottle class
         Bottle selectedBottle = Bottle.currentlySelectedBottle;
 
         if (selectedBottle != null)
@@ -26,7 +26,6 @@ public class Shaker : MonoBehaviour
             bottles.Add(selectedBottle.gameObject.name);
             Debug.Log("Added " + selectedBottle.gameObject.name + " to shaker");
 
-            // Optionally deselect after adding
             selectedBottle.Deselect();
             Bottle.currentlySelectedBottle = null;
 
@@ -47,6 +46,39 @@ public class Shaker : MonoBehaviour
         else
         {
             shakerContentsText.text = "Shaker Contents: Empty";
+        }
+    }
+
+    public void emptyShaker()
+    {
+        bottles.Clear();
+        contentsDisplay();
+        Debug.Log("Shaker cleared");
+    }
+
+    public void mixDrink()
+    {
+        if (bottles.Count < 2)
+        {
+            Debug.Log("2 or more bottles are needed to mix duh");
+        }
+
+        else
+        {
+            HashSet<string> shakerSet = new HashSet<string>(bottles);
+
+            if (RecipeBook.recipes.TryGetValue(shakerSet, out string drink))
+            {
+                mixedDrinkText.text = "You made: " + drink;
+                Debug.Log("Made " + drink);
+                emptyShaker();
+            }
+            else
+            {
+                mixedDrinkText.text = "Made Bad Drink (no recipe found)";
+                Debug.Log("Made Bad Drink");
+                emptyShaker();
+            }
         }
     }
 }
