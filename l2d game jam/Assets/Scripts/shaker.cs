@@ -95,7 +95,7 @@ public class Shaker : MonoBehaviour
                 {
                     currentlyMadeDrink = drink;
 
-                    mixedDrinkText.text = "You made: " + currentlyMadeDrink;
+                    mixedDrinkText.text = "Mixed Drink: " + currentlyMadeDrink;
                     Debug.Log("Made " + currentlyMadeDrink);
                     emptyShaker();
                     shakerStatus = ShakerStatus.open;
@@ -103,7 +103,7 @@ public class Shaker : MonoBehaviour
                 }
                 else
                 {
-                    mixedDrinkText.text = "Made Bad Drink (no recipe found)";
+                    mixedDrinkText.text = "Mixed Drink: Bad Drink (no recipe found)";
                     Debug.Log("Made Bad Drink");
                     emptyShaker();
                 }
