@@ -7,10 +7,19 @@ public class Bottle : MonoBehaviour
 
     public bool isSelected = false;
     public TMP_Text selectedBottle;
+    public BottleData bottleData;
 
     void Start()
     {
         selectedBottle = GameObject.Find("selected bottle").GetComponent<TMP_Text>();
+
+        var renderer = GetComponent<SpriteRenderer>();
+        if (renderer != null)
+        {
+            renderer.sprite = bottleData.texture;
+        }
+
+        Debug.Log("Loaded bottle: " + bottleData.bottleName);
     }
     
 

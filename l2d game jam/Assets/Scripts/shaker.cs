@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class Shaker : MonoBehaviour
 {
-    private List<string> bottles = new List<string>();
+    private List<BottleData> bottles = new List<BottleData>();
     public TMP_Text shakerContentsText;
     public TMP_Text mixedDrinkText;
     public TMP_Text shakerStatusText;
@@ -36,8 +36,7 @@ public class Shaker : MonoBehaviour
 
         if (selectedBottle != null)
         {
-            bottles.Add(selectedBottle.gameObject.name);
-            Debug.Log("Added " + selectedBottle.gameObject.name + " to shaker");
+            addBottles(selectedBottle.bottleData);
 
             selectedBottle.Deselect();
             Bottle.currentlySelectedBottle = null;
@@ -46,11 +45,18 @@ public class Shaker : MonoBehaviour
         }
     }
 
+    public void addBottles(BottleData bottleData)
+    {
+        bottles.Add(bottleData);
+            Debug.Log("Added " + bottleData.bottleName + " to shaker");
+
+    }
+
     public void contentsDisplay()
     {
         if (bottles.Count > 0)
         {
-            shakerContentsText.text = "Shaker Contents: " + string.Join(", ", bottles);
+            shakerContentsText.text = "Shaker Contents: " + string.Join(", ", bottles.ConvertAll(b => b.bottleName));
         }
         else
         {
@@ -83,7 +89,7 @@ public class Shaker : MonoBehaviour
             }
             else
             {
-                HashSet<string> shakerSet = new HashSet<string>(bottles);
+                HashSet<string> shakerSet = new HashSet<string>(bottles.ConvertAll(b => b.bottleName));
 
                 if (RecipeBook.recipes.TryGetValue(shakerSet, out string drink))
                 {

@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 524ac9118b86c1a4390ca3aa6e5f8ee1, type: 3}
   m_Name: Rum
   m_EditorClassIdentifier: Assembly-CSharp::Bottles
-  name: Rum
+  bottleName: Rum
   effects:
   - EffectType: 0
     effectValue: 0
   - EffectType: 1
     effectValue: 0
-  texture: {fileID: 0}
+  texture: {fileID: 36075331860022920, guid: e8b08b7551cf9bf4884224f6385a7590, type: 3}

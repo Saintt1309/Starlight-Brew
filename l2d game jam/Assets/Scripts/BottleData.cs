@@ -17,10 +17,10 @@ public struct effects
 }
 
 [CreateAssetMenu(fileName = "Bottles", menuName = "Scriptable Objects/Bottles")]
-public class Bottles : ScriptableObject
+public class BottleData : ScriptableObject
 {
     [Header("Stats")]
-    public string name;
+    public string bottleName;
 
     public effects[] effects;
 
