@@ -4,8 +4,15 @@ using UnityEngine;
 public enum EffectTypes
 {
     hot,
-    cold
+    cold,
+    drowsy,
+    energized,
+    sweet,
+    bitter,
+    heightened,
+    relaxed
     //add enums here im not creative enough for ts
+    //ones I added are just sample enums to test the mixing system
 
 }
 
