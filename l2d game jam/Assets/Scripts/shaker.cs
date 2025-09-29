@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
+using System.Data.Common;
 
 public class Shaker : MonoBehaviour
 {
@@ -9,7 +10,9 @@ public class Shaker : MonoBehaviour
     public TMP_Text shakerContentsText;
     public TMP_Text mixedDrinkText;
     public TMP_Text shakerStatusText;
+    public TMP_Text previousOrderStatusText;
     public string currentlyMadeDrink;
+    public Customer customer;
 
     private ShakerStatus shakerStatus;
 
@@ -19,11 +22,20 @@ public class Shaker : MonoBehaviour
         closed
     }
 
+    public enum CompareResult
+    {
+        match,
+        noMatch,
+    }
+
+    public CompareResult compareResult;
+
     void Start()
     {
         shakerContentsText = GameObject.Find("shaker contents").GetComponent<TMP_Text>();
         mixedDrinkText = GameObject.Find("mixed drink").GetComponent<TMP_Text>();
         shakerStatusText = GameObject.Find("shaker status").GetComponent<TMP_Text>();
+        previousOrderStatusText = GameObject.Find("previous order status").GetComponent<TMP_Text>();
         contentsDisplay();
 
         currentlyMadeDrink = null;
@@ -91,12 +103,11 @@ public class Shaker : MonoBehaviour
             }
             else
             {
-                currentlyMadeDrink = string.Join(", ", GetAllEffects());
+                currentlyMadeDrink = string.Join(", ", getAllEffects());
                 mixedDrinkText.text = "Mixed Drink: " + currentlyMadeDrink;
-                emptyShaker();
             }
         }
-            
+
     }
 
     public void closeShaker()
@@ -145,8 +156,8 @@ public class Shaker : MonoBehaviour
                 break;
         }
     }
-    
-    public List<EffectData> GetAllEffects()
+
+    public List<EffectData> getAllEffects()
     {
         List<EffectData> totalEffects = new List<EffectData>();
 
@@ -161,10 +172,66 @@ public class Shaker : MonoBehaviour
         return totalEffects;
     }
 
-    public void compareOrder()
+    public void compareOrder(List<EffectData> requestedEffects)
     {
+        if (requestedEffects != null && requestedEffects.Count > 0)
+        {
+            if (string.IsNullOrEmpty(currentlyMadeDrink))
+            {
+                Debug.Log("There is nothing to serve (no mixed drinks)");
+            }
+            else
+            {
+                Debug.Log("Comparing order");
 
+                List<EffectData> shakerEffects = getAllEffects();
+
+                // Convert to sets (ignores duplicates, order doesn’t matter)
+                HashSet<EffectData> shakerSet = new HashSet<EffectData>(shakerEffects);
+                HashSet<EffectData> requestSet = new HashSet<EffectData>(requestedEffects);
+
+                if (shakerSet.SetEquals(requestSet))
+                {
+                    compareResult = CompareResult.match;
+                    previousOrderStatusText.text = "Previous Order Status: " + compareResult;
+                    customer.correctOrders++;
+                    Debug.Log("Correct Order!");
+
+                    emptyShaker();
+                    currentlyMadeDrink = null;
+                    mixedDrinkText.text = "Mixed Drink: " + currentlyMadeDrink;
+
+                    customer.order();
+                } 
+
+                else
+                {
+                    compareResult = CompareResult.noMatch;
+                    previousOrderStatusText.text = "Previous Order Status: " + compareResult;
+                    customer.wrongOrders++;
+                    Debug.Log("Wrong Order!");
+                }
+            } 
+        }
+
+        else
+        {
+            customer.orderStatus = Customer.OrderStatus.noOrder;
+            Debug.Log("There are no orders");
+        }
     }
 
-    
+    public void serve()
+    {
+        if (customer.orderStatus != Customer.OrderStatus.noOrder)
+        {
+            compareOrder(customer.currentOrder);
+        }
+        else
+        {
+            Debug.Log("No order to serve to");
+        }
+        
+    }
+ 
 }

@@ -15,18 +15,37 @@ public class Customer : MonoBehaviour
     public DifficultyStages difficultyStage;
 
     public TMP_Text currentOrderText;
-    public TMP_Text previousOrderStatusText;
+
     public TMP_Text difficultyStageText;
+    public TMP_Text correctOrderText;
+    public int correctOrders;
+    public TMP_Text wrongOrderText;
+    public int wrongOrders;
+    public List<EffectData> currentOrder;
+
+    public enum OrderStatus
+    {
+        noOrder,
+        inProgress
+    }
+
+    public OrderStatus orderStatus;
 
     void Start()
     {
         difficultyStage = DifficultyStages.stage1;
+        orderStatus = OrderStatus.noOrder;
+
+        correctOrders = 0;
+        wrongOrders = 0;
 
         currentOrderText = GameObject.Find("customer order").GetComponent<TMP_Text>();
-        previousOrderStatusText = GameObject.Find("previous order status").GetComponent<TMP_Text>();
         difficultyStageText = GameObject.Find("difficulty stage").GetComponent<TMP_Text>();
+        correctOrderText = GameObject.Find("correct orders").GetComponent<TMP_Text>();
+        wrongOrderText = GameObject.Find("wrong orders").GetComponent<TMP_Text>();
 
         difficultyStageText.text = "Difficulty Stage: " + difficultyStage;
+        
     }
 
     void Update()
@@ -36,7 +55,11 @@ public class Customer : MonoBehaviour
             order();
             Debug.Log("generating order.");
         }
+
         difficultyStageText.text = "Difficulty Stage: " + difficultyStage;
+        correctOrderText.text = "Correct Orders: " + correctOrders;
+        wrongOrderText.text = "Wrong Orders: " + wrongOrders;
+
     }
 
     public void order()
@@ -58,11 +81,13 @@ public class Customer : MonoBehaviour
                 break;
 
         }
+        orderStatus = OrderStatus.inProgress;
 
-        List<EffectData> requestedEffects = GetRandomEffects(count);
-        currentOrderText.text = "Current Order: " + string.Join(", ", requestedEffects.ConvertAll(b => b.effectName));
+        currentOrder = GetRandomEffects(count);
+        currentOrderText.text = "Current Order: " + string.Join(", ", currentOrder.ConvertAll(b => b.effectName));
+        Debug.Log("current order count: " + currentOrder.Count);
 
-        foreach (var e in requestedEffects)
+        foreach (var e in currentOrder)
         {
             Debug.Log("Customer ordered: " + e.effectName);
 
@@ -84,4 +109,6 @@ public class Customer : MonoBehaviour
 
         return chosen;
     }
+
+    
 }
