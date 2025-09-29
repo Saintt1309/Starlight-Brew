@@ -14,8 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Bottles
   bottleName: Coke
   effects:
-  - EffectType: 0
-    effectValue: 0
-  - EffectType: 1
+  - effect: {fileID: 11400000, guid: dc83407e1f4dde04dba7492a6791f722, type: 2}
     effectValue: 0
   texture: {fileID: 1937250134171947618, guid: de84f49022e89404cb8f08bc926b9cc4, type: 3}

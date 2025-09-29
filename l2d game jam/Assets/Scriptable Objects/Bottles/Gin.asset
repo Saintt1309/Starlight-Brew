@@ -14,8 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Bottles
   bottleName: Gin
   effects:
-  - EffectType: 0
-    effectValue: 0
-  - EffectType: 1
+  - effect: {fileID: 11400000, guid: f1fa36cb6598fe84d94514ba1272aad1, type: 2}
     effectValue: 0
   texture: {fileID: 4382118237688152552, guid: ff198e8b71214104d9e99de667252e15, type: 3}

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class Shaker : MonoBehaviour
 {
     private List<BottleData> bottles = new List<BottleData>();
+    public BottleData bottleData;
     public TMP_Text shakerContentsText;
     public TMP_Text mixedDrinkText;
     public TMP_Text shakerStatusText;
@@ -34,7 +35,7 @@ public class Shaker : MonoBehaviour
 
         Bottle selectedBottle = Bottle.currentlySelectedBottle;
 
-        if (selectedBottle != null)
+        if (selectedBottle != null && currentlyMadeDrink == null)
         {
             addBottles(selectedBottle.bottleData);
 
@@ -48,7 +49,7 @@ public class Shaker : MonoBehaviour
     public void addBottles(BottleData bottleData)
     {
         bottles.Add(bottleData);
-            Debug.Log("Added " + bottleData.bottleName + " to shaker");
+        Debug.Log("Added " + bottleData.bottleName + " to shaker");
 
     }
 
@@ -67,48 +68,43 @@ public class Shaker : MonoBehaviour
     public void emptyShaker()
     {
         bottles.Clear();
-        
+
         contentsDisplay();
-        
-        
+
+
         Debug.Log("Shaker cleared");
     }
 
     public void mixDrink()
     {
-        if (bottles.Count < 2)
+        if (bottles.Count < 1)
         {
-            Debug.Log("2 or more bottles are needed to mix duh");
+            Debug.Log("nothing to mix");
         }
 
         else
         {
-            if (shakerStatus == ShakerStatus.open)
+            if (shakerStatus != ShakerStatus.closed)
             {
-                Debug.Log("Close the shaker to mix");
+                Debug.Log("Gotta close the cap first!");
             }
             else
             {
-                HashSet<string> shakerSet = new HashSet<string>(bottles.ConvertAll(b => b.bottleName));
+                List<string> totalEffects = new List<string>();
 
-                if (RecipeBook.recipes.TryGetValue(shakerSet, out string drink))
+                foreach (var bottle in bottles)
                 {
-                    currentlyMadeDrink = drink;
-
-                    mixedDrinkText.text = "Mixed Drink: " + currentlyMadeDrink;
-                    Debug.Log("Made " + currentlyMadeDrink);
-                    emptyShaker();
-                    shakerStatus = ShakerStatus.open;
-                    shakerStatusText.text = "Shaker Status: " + shakerStatus;
+                    foreach (var e in bottle.effects)
+                    {
+                        totalEffects.Add(e.effect.effectName);
+                    }
                 }
-                else
-                {
-                    mixedDrinkText.text = "Mixed Drink: Bad Drink (no recipe found)";
-                    Debug.Log("Made Bad Drink");
-                    emptyShaker();
-                }
+                currentlyMadeDrink = string.Join(", ", totalEffects);
+                mixedDrinkText.text = "Mixed Drink: " + currentlyMadeDrink;
+                emptyShaker();
             }
         }
+            
     }
 
     public void closeShaker()
@@ -116,7 +112,7 @@ public class Shaker : MonoBehaviour
         if (shakerStatus == ShakerStatus.closed)
         {
             Debug.Log("Shaker is Already Closed");
-            
+
         }
 
         else
@@ -157,4 +153,10 @@ public class Shaker : MonoBehaviour
                 break;
         }
     }
+
+    public void compareOrder() {
+        
+    }
+
+    
 }
