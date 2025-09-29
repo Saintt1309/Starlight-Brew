@@ -26,6 +26,7 @@ public class Shaker : MonoBehaviour
         shakerStatusText = GameObject.Find("shaker status").GetComponent<TMP_Text>();
         contentsDisplay();
 
+        currentlyMadeDrink = null;
         shakerStatus = ShakerStatus.open;
         shakerStatusText.text = "Shaker Status: " + shakerStatus;
     }
@@ -90,16 +91,7 @@ public class Shaker : MonoBehaviour
             }
             else
             {
-                List<string> totalEffects = new List<string>();
-
-                foreach (var bottle in bottles)
-                {
-                    foreach (var e in bottle.effects)
-                    {
-                        totalEffects.Add(e.effect.effectName);
-                    }
-                }
-                currentlyMadeDrink = string.Join(", ", totalEffects);
+                currentlyMadeDrink = string.Join(", ", GetAllEffects());
                 mixedDrinkText.text = "Mixed Drink: " + currentlyMadeDrink;
                 emptyShaker();
             }
@@ -153,9 +145,25 @@ public class Shaker : MonoBehaviour
                 break;
         }
     }
+    
+    public List<EffectData> GetAllEffects()
+    {
+        List<EffectData> totalEffects = new List<EffectData>();
 
-    public void compareOrder() {
-        
+        foreach (var bottle in bottles)
+        {
+            foreach (var e in bottle.effects)
+            {
+                totalEffects.Add(e.effect); // only the EffectData reference
+            }
+        }
+
+        return totalEffects;
+    }
+
+    public void compareOrder()
+    {
+
     }
 
     

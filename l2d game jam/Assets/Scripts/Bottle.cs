@@ -36,11 +36,12 @@ public class Bottle : MonoBehaviour
             Select();
             Debug.Log("Bottle selected");
 
-            selectedBottle.text = "Selected Bottle: " + gameObject.name;
+            selectedBottle.text = "Selected Bottle: " + currentlySelectedBottle;
         }
         else
         {
-            MoveUp();
+            currentlySelectedBottle.Deselect();
+            selectedBottle.text = "Selected Bottle: " + currentlySelectedBottle;
         }
     }
 
@@ -49,7 +50,6 @@ public class Bottle : MonoBehaviour
         isSelected = true;
         currentlySelectedBottle = this;
 
-        // OPTIONAL: add a visual cue for selection
         GetComponent<Renderer>().material.color = Color.yellow;
     }
 
@@ -57,16 +57,6 @@ public class Bottle : MonoBehaviour
     {
         isSelected = false;
 
-        // OPTIONAL: reset visual cue
         GetComponent<Renderer>().material.color = Color.white;
-    }
-
-    void MoveUp()
-    {
-        transform.position = new Vector3(
-            transform.position.x,
-            transform.position.y + 20f,
-            transform.position.z
-        );
     }
 }
