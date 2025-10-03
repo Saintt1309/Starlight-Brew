@@ -9,4 +9,11 @@ public class RecipeBook : MonoBehaviour
             { new HashSet<string>{ "Bottle 1", "Bottle 3" }, "Drink 13" },
             { new HashSet<string>{ "Bottle 2", "Bottle 3" }, "Drink 23" }
         };
+    public Drinks drinks = new Drinks();
+}
+
+public class Drinks
+{
+    public string name;
+    public int effectValue;
 }

@@ -1,0 +1,391 @@
+{
+	"Version": 3,
+	"Parameters": [
+		{
+			"Id": "ParamEyeLOpen",
+			"GroupId": "ParamGroup",
+			"Name": "EyeL Open"
+		},
+		{
+			"Id": "ParamEyeLSmile",
+			"GroupId": "ParamGroup",
+			"Name": "EyeL Smile"
+		},
+		{
+			"Id": "Param5",
+			"GroupId": "ParamGroup",
+			"Name": "Eyebrow Angle"
+		},
+		{
+			"Id": "ParamEyeROpen",
+			"GroupId": "ParamGroup",
+			"Name": "EyeR Open"
+		},
+		{
+			"Id": "ParamEyeRSmile",
+			"GroupId": "ParamGroup",
+			"Name": "EyeR Smile"
+		},
+		{
+			"Id": "ParamEyeBallX",
+			"GroupId": "ParamGroup",
+			"Name": "Eyeball X"
+		},
+		{
+			"Id": "ParamEyeBallY",
+			"GroupId": "ParamGroup",
+			"Name": "Eyeball Y"
+		},
+		{
+			"Id": "ParamMouthForm",
+			"GroupId": "ParamGroup2",
+			"Name": "Mouth Form"
+		},
+		{
+			"Id": "ParamMouthOpenY",
+			"GroupId": "ParamGroup2",
+			"Name": "Mouth Open"
+		},
+		{
+			"Id": "ParamCheek",
+			"GroupId": "ParamGroup2",
+			"Name": "Cheek"
+		},
+		{
+			"Id": "Param3",
+			"GroupId": "ParamGroup3",
+			"Name": "Back Hair Style"
+		},
+		{
+			"Id": "Param",
+			"GroupId": "ParamGroup3",
+			"Name": "Colour"
+		},
+		{
+			"Id": "Param2",
+			"GroupId": "ParamGroup3",
+			"Name": "Hair Style"
+		},
+		{
+			"Id": "ParamAngleX",
+			"GroupId": "",
+			"Name": "Angle X"
+		},
+		{
+			"Id": "ParamAngleY",
+			"GroupId": "",
+			"Name": "Angle Y"
+		},
+		{
+			"Id": "ParamAngleZ",
+			"GroupId": "",
+			"Name": "Angle Z"
+		},
+		{
+			"Id": "Param4",
+			"GroupId": "",
+			"Name": "Outfit"
+		},
+		{
+			"Id": "ParamBodyAngleX",
+			"GroupId": "",
+			"Name": "Body X"
+		},
+		{
+			"Id": "ParamBodyAngleY",
+			"GroupId": "",
+			"Name": "Body Y"
+		},
+		{
+			"Id": "ParamBodyAngleZ",
+			"GroupId": "",
+			"Name": "Body Z"
+		},
+		{
+			"Id": "ParamBreath",
+			"GroupId": "",
+			"Name": "Breath"
+		}
+	],
+	"ParameterGroups": [
+		{
+			"Id": "ParamGroup",
+			"GroupId": "",
+			"Name": "Eye"
+		},
+		{
+			"Id": "ParamGroup2",
+			"GroupId": "",
+			"Name": "Mouth"
+		},
+		{
+			"Id": "ParamGroup3",
+			"GroupId": "",
+			"Name": "Folder 1"
+		}
+	],
+	"Parts": [
+		{
+			"Id": "Part15",
+			"Name": "Hornet_Idle.png"
+		},
+		{
+			"Id": "Part14",
+			"Name": "L2D Model.psd (Corresponding layer not found)"
+		},
+		{
+			"Id": "FrontHairs2",
+			"Name": "FrontHairs"
+		},
+		{
+			"Id": "Part",
+			"Name": "Head(set)"
+		},
+		{
+			"Id": "Torso",
+			"Name": "Torso"
+		},
+		{
+			"Id": "Arms",
+			"Name": "Arms"
+		},
+		{
+			"Id": "BackHairs",
+			"Name": "BackHairs"
+		},
+		{
+			"Id": "Misc",
+			"Name": "Misc"
+		},
+		{
+			"Id": "BoyHairsFront4",
+			"Name": "BoyHairsFront3"
+		},
+		{
+			"Id": "BoyHairsFront5",
+			"Name": "BoyHairsFront2"
+		},
+		{
+			"Id": "BoyHairsFront6",
+			"Name": "BoyHairsFront1"
+		},
+		{
+			"Id": "GirlHairsFront4",
+			"Name": "GirlHairsFront3"
+		},
+		{
+			"Id": "GirlHairsFront5",
+			"Name": "GirlHairsFront2"
+		},
+		{
+			"Id": "GirlHairsFront6",
+			"Name": "GirlHairsFront1"
+		},
+		{
+			"Id": "Face2",
+			"Name": "Face2"
+		},
+		{
+			"Id": "Face",
+			"Name": "Face"
+		},
+		{
+			"Id": "Head",
+			"Name": "Head"
+		},
+		{
+			"Id": "Ears",
+			"Name": "Ears"
+		},
+		{
+			"Id": "Outfits",
+			"Name": "Outfits"
+		},
+		{
+			"Id": "Neck",
+			"Name": "Neck"
+		},
+		{
+			"Id": "UniformBackcollar_Girl",
+			"Name": "UniformBackcollar_Girl"
+		},
+		{
+			"Id": "Torso2",
+			"Name": "Torso"
+		},
+		{
+			"Id": "Waist",
+			"Name": "Waist"
+		},
+		{
+			"Id": "Part11",
+			"Name": "Neck Muscle"
+		},
+		{
+			"Id": "Part12",
+			"Name": "Left Arm"
+		},
+		{
+			"Id": "Part13",
+			"Name": "Right Arm"
+		},
+		{
+			"Id": "BoyBackHairs1",
+			"Name": "BoyBackHairs1"
+		},
+		{
+			"Id": "GirlBackHairs3",
+			"Name": "GirlBackHairs3"
+		},
+		{
+			"Id": "GirlBackHair2",
+			"Name": "GirlBackHair2"
+		},
+		{
+			"Id": "GirlBackHair1",
+			"Name": "GirlBackHair1"
+		},
+		{
+			"Id": "CasualGirl_Cape",
+			"Name": "CasualGirl_Cape"
+		},
+		{
+			"Id": "EyesLeft",
+			"Name": "EyesLeft"
+		},
+		{
+			"Id": "EyesRight",
+			"Name": "EyesRight"
+		},
+		{
+			"Id": "Part3",
+			"Name": "LeftBlush Copy 3"
+		},
+		{
+			"Id": "Part4",
+			"Name": "RightBlush Copy 3"
+		},
+		{
+			"Id": "Part5",
+			"Name": "Mouth Copy 3"
+		},
+		{
+			"Id": "Part7",
+			"Name": "Nose Copy 5"
+		},
+		{
+			"Id": "EyeRight",
+			"Name": "EyeRight"
+		},
+		{
+			"Id": "LeftBlush",
+			"Name": "LeftBlush"
+		},
+		{
+			"Id": "RightBlush",
+			"Name": "RightBlush"
+		},
+		{
+			"Id": "Mouth",
+			"Name": "Mouth"
+		},
+		{
+			"Id": "Nose",
+			"Name": "Nose"
+		},
+		{
+			"Id": "Left",
+			"Name": "Left"
+		},
+		{
+			"Id": "Right",
+			"Name": "Right"
+		},
+		{
+			"Id": "Uniform_Boy",
+			"Name": "Uniform_Boy"
+		},
+		{
+			"Id": "Part9",
+			"Name": "T-Shirt_Boy"
+		},
+		{
+			"Id": "Part10",
+			"Name": "T-Shirt_Girl"
+		},
+		{
+			"Id": "Casual_Girl",
+			"Name": "Casual_Girl"
+		},
+		{
+			"Id": "Uniform_Girl",
+			"Name": "Uniform_Girl"
+		},
+		{
+			"Id": "Outfits2",
+			"Name": "Outfits"
+		},
+		{
+			"Id": "Base",
+			"Name": "Base"
+		},
+		{
+			"Id": "Outfits3",
+			"Name": "Outfits"
+		},
+		{
+			"Id": "Base2",
+			"Name": "Base"
+		},
+		{
+			"Id": "Part2",
+			"Name": "Iris Copy 6"
+		},
+		{
+			"Id": "Iris",
+			"Name": "Iris"
+		},
+		{
+			"Id": "Part6",
+			"Name": "Lips Copy 3"
+		},
+		{
+			"Id": "Part8",
+			"Name": "Iris Copy"
+		},
+		{
+			"Id": "Lips",
+			"Name": "Lips"
+		},
+		{
+			"Id": "UniformGirl_Left",
+			"Name": "UniformGirl_Left"
+		},
+		{
+			"Id": "UniformGirl_Rioght",
+			"Name": "UniformGirl_Rioght"
+		},
+		{
+			"Id": "UniformBoy_right",
+			"Name": "UniformBoy_right"
+		}
+	],
+	"CombinedParameters": [
+		[
+			"ParamEyeLOpen",
+			"ParamEyeLSmile"
+		],
+		[
+			"ParamEyeBallX",
+			"ParamEyeBallY"
+		],
+		[
+			"ParamMouthForm",
+			"ParamMouthOpenY"
+		],
+		[
+			"ParamAngleX",
+			"ParamAngleY"
+		]
+	]
+}
