@@ -3,23 +3,23 @@ using Live2D.Cubism.Core;
 
 public class ModelRandomizer : MonoBehaviour
 {
-    private CubismModel model;
+    public CubismModel model;
 
     // Store references to parameters
-    private CubismParameter param;
-    private CubismParameter param2;
-    private CubismParameter param3;
-    private CubismParameter param4;
+    public CubismParameter param;
+    public CubismParameter param2;
+    public CubismParameter param3;
+    public CubismParameter param4;
 
     private void Start()
     {
         model = GetComponent<CubismModel>();
 
         // Get parameters by name
-        param = model.Parameters.FindById("param");
-        param2 = model.Parameters.FindById("param2");
-        param3 = model.Parameters.FindById("param3");
-        param4 = model.Parameters.FindById("param4");
+        param = model.Parameters.FindById("Param");
+        param2 = model.Parameters.FindById("Param2");
+        param3 = model.Parameters.FindById("Param3");
+        param4 = model.Parameters.FindById("Param4");
 
         // Example: randomize once
         Randomize();

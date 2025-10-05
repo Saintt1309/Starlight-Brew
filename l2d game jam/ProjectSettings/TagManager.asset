@@ -42,14 +42,14 @@ TagManager:
   - name: Background
     uniqueID: 3780578513
     locked: 0
+  - name: Default
+    uniqueID: 0
+    locked: 0
   - name: ForeGround
     uniqueID: 256389497
     locked: 0
   - name: UI
     uniqueID: 4085758447
-    locked: 0
-  - name: Default
-    uniqueID: 0
     locked: 0
   m_RenderingLayers:
   - Default
