@@ -3,7 +3,19 @@ using UnityEngine;
 
 public class CustomerAnim : MonoBehaviour
 {
+    public static CustomerAnim Instance { get; private set; }
     public Animator anim;
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+    }
 
     private void Start()
     {
@@ -17,24 +29,9 @@ public class CustomerAnim : MonoBehaviour
     {
         anim.SetTrigger("Sad");
     }
-    public void startsTalkingForSeconds(float seconds)
+    public void nextCustomer()
     {
-        anim.SetTrigger("StartsTalking");
-        StartCoroutine(FinishTalking(seconds));
+        anim.SetTrigger("NewPlayer");
     }
-    public void dissapearsAfterSeconds(float seconds)
-    {
-        anim.SetTrigger("Dissapear");
-        StartCoroutine(Dissapear(seconds));
-    }
-    private IEnumerator FinishTalking(float seconds)
-    {
-        yield return new WaitForSeconds(seconds);
-        anim.SetTrigger("FinishTalking");
-    }
-    private IEnumerator Dissapear(float seconds)
-    {
-        yield return new WaitForSeconds(seconds);
-        gameObject.SetActive(false);
-    }
+
 }
