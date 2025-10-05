@@ -20,18 +20,15 @@ public class ModelRandomizer : MonoBehaviour
         param2 = model.Parameters.FindById("Param2");
         param3 = model.Parameters.FindById("Param3");
         param4 = model.Parameters.FindById("Param4");
-
-        // Example: randomize once
-        Randomize();
     }
 
     public void Randomize()
     {
         if (param != null)
-            param.Value = Mathf.Round(Random.Range(param.MinimumValue, param.MaximumValue)); // int
+            param.Value = Random.Range(param.MinimumValue, param.MaximumValue); // float
 
         if (param2 != null)
-            param2.Value = Random.Range(param2.MinimumValue, param2.MaximumValue); // float
+            param2.Value = Mathf.Round(Random.Range(param2.MinimumValue, param2.MaximumValue)); // int
 
         if (param3 != null)
             param3.Value = Mathf.Round(Random.Range(param3.MinimumValue, param3.MaximumValue)); // int
