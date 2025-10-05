@@ -14,14 +14,6 @@ public class Shaker : MonoBehaviour
     public string currentlyMadeDrink;
     public Customer customer;
 
-    private ShakerStatus shakerStatus;
-
-    enum ShakerStatus
-    {
-        open,
-        closed
-    }
-
     public enum CompareResult
     {
         match,
@@ -39,8 +31,6 @@ public class Shaker : MonoBehaviour
         contentsDisplay();
 
         currentlyMadeDrink = null;
-        shakerStatus = ShakerStatus.open;
-        shakerStatusText.text = "Shaker Status: " + shakerStatus;
     }
     public void OnMouseDown()
     {
@@ -97,41 +87,15 @@ public class Shaker : MonoBehaviour
 
         else
         {
-            if (shakerStatus != ShakerStatus.closed)
-            {
-                Debug.Log("Gotta close the cap first!");
-            }
-            else
-            {
+           
                 currentlyMadeDrink = string.Join(", ", getAllEffects());
                 mixedDrinkText.text = "Mixed Drink: " + currentlyMadeDrink;
-            }
+            
         }
 
     }
 
-    public void closeShaker()
-    {
-        if (shakerStatus == ShakerStatus.closed)
-        {
-            Debug.Log("Shaker is Already Closed");
 
-        }
-
-        else
-        {
-            if (bottles.Count < 1)
-            {
-                Debug.Log("The shaker is empty");
-            }
-            else
-            {
-                shakerStatus = ShakerStatus.closed;
-                shakerStatusText.text = "Shaker Status: " + shakerStatus;
-                Debug.Log("Closing Shaker");
-            }
-        }
-    }
 
     public void checkAction(string hitInfo)
     {
@@ -139,8 +103,6 @@ public class Shaker : MonoBehaviour
         {
             case "Mix Area":
                 mixDrink();
-                shakerStatus = ShakerStatus.open;
-                shakerStatusText.text = "Shaker Status: " + shakerStatus;
 
                 Debug.Log("Mixing Drinks");
                 break;
@@ -148,8 +110,6 @@ public class Shaker : MonoBehaviour
             case "Trash Area":
                 emptyShaker();
                 currentlyMadeDrink = null;
-                shakerStatus = ShakerStatus.open;
-                shakerStatusText.text = "Shaker Status: " + shakerStatus;
                 mixedDrinkText.text = "Mixed Drink: " + currentlyMadeDrink;
 
                 Debug.Log("Throwing Drinks");

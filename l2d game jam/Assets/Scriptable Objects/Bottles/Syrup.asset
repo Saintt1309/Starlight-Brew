@@ -10,10 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 524ac9118b86c1a4390ca3aa6e5f8ee1, type: 3}
-  m_Name: Tonic
+  m_Name: Syrup
   m_EditorClassIdentifier: Assembly-CSharp::BottleData
-  bottleName: Tonic
-  effects:
-  - effect: {fileID: 11400000, guid: 25a682e2976e3704fbc098a266e326b1, type: 2}
-    effectValue: 0
-  texture: {fileID: 1937250134171947618, guid: de84f49022e89404cb8f08bc926b9cc4, type: 3}
+  bottleName: Syrup
+  effects: []
+  texture: {fileID: -5614393744052955127, guid: 1ce6f07475503934d81c3187100b8c75, type: 3}
