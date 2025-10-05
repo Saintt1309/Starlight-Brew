@@ -51,7 +51,7 @@ public class Customer : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.F4))
         {
             OrderDrink();
             Debug.Log("Generating new drink order.");
