@@ -4,7 +4,8 @@ using TMPro;
 
 public class Customer : MonoBehaviour
 {
-    public EffectsDB effectsDB;
+    public RecipeBook recipeBook;
+    public Shaker shaker;
 
     public enum DifficultyStages
     {
@@ -15,20 +16,20 @@ public class Customer : MonoBehaviour
     public DifficultyStages difficultyStage;
 
     public TMP_Text currentOrderText;
-
     public TMP_Text difficultyStageText;
     public TMP_Text correctOrderText;
-    public int correctOrders;
     public TMP_Text wrongOrderText;
+
+    public int correctOrders;
     public int wrongOrders;
-    public List<EffectData> currentOrder;
+
+    public string currentDrinkOrder;
 
     public enum OrderStatus
     {
         noOrder,
         inProgress
     }
-
     public OrderStatus orderStatus;
 
     void Start()
@@ -45,70 +46,67 @@ public class Customer : MonoBehaviour
         wrongOrderText = GameObject.Find("wrong orders").GetComponent<TMP_Text>();
 
         difficultyStageText.text = "Difficulty Stage: " + difficultyStage;
-        
+        Debug.Log("Customer system initialized in " + gameObject.name);
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            order();
-            Debug.Log("generating order.");
+            OrderDrink();
+            Debug.Log("Generating new drink order.");
         }
 
         difficultyStageText.text = "Difficulty Stage: " + difficultyStage;
         correctOrderText.text = "Correct Orders: " + correctOrders;
         wrongOrderText.text = "Wrong Orders: " + wrongOrders;
-
     }
 
-    public void order()
+    public void OrderDrink()
     {
-        int count;
-        switch (difficultyStage)
+        if (recipeBook == null)
         {
-            case DifficultyStages.stage1:
-                count = 1;
-                break;
-            case DifficultyStages.stage2:
-                count = 2;
-                break;
-            case DifficultyStages.stage3:
-                count = 3;
-                break;
-            default:
-                count = 1; // fallback
-                break;
-
+            Debug.LogError("RecipeBook reference not set on Customer!");
+            currentOrderText.text = "Customer Order: ERROR - No RecipeBook";
+            return;
         }
+
+        List<string> allDrinks = new List<string>(RecipeBook.recipes.Values);
+
+        if (allDrinks.Count == 0)
+        {
+            Debug.LogWarning("No drinks found in recipe book!");
+            currentOrderText.text = "Customer Order: No available drinks";
+            return;
+        }
+
+        int index = Random.Range(0, allDrinks.Count);
+        currentDrinkOrder = allDrinks[index];
         orderStatus = OrderStatus.inProgress;
 
-        currentOrder = GetRandomEffects(count);
-        currentOrderText.text = "Current Order: " + string.Join(", ", currentOrder.ConvertAll(b => b.effectName));
-        Debug.Log("current order count: " + currentOrder.Count);
-
-        foreach (var e in currentOrder)
-        {
-            Debug.Log("Customer ordered: " + e.effectName);
-
-        }
-
+        currentOrderText.text = "Customer Order: " + currentDrinkOrder;
+        Debug.Log("Customer ordered: " + currentDrinkOrder);
     }
 
-    public List<EffectData> GetRandomEffects(int count)
+    public void OrderResult(bool correct)
     {
-        List<EffectData> copy = new List<EffectData>(effectsDB.allEffects);
-        List<EffectData> chosen = new List<EffectData>();
-
-        for (int i = 0; i < count && copy.Count > 0; i++)
+        if (correct)
         {
-            int index = Random.Range(0, copy.Count);
-            chosen.Add(copy[index]);
-            copy.RemoveAt(index);
+            correctOrders++;
+            Debug.Log("Customer received the correct drink!");
+        }
+        else
+        {
+            wrongOrders++;
+            Debug.Log("Customer received the wrong drink!");
         }
 
-        return chosen;
+        correctOrderText.text = "Correct Orders: " + correctOrders;
+        wrongOrderText.text = "Wrong Orders: " + wrongOrders;
     }
 
-    
+    public void OnMouseDown()
+    {
+        shaker.serve();
+    }
 }
