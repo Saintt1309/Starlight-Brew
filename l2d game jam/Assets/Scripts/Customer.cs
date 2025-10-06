@@ -1,11 +1,16 @@
-using UnityEngine;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.Rendering;
+using UnityEngine;
+using UnityEngine.Audio;
 
 public class Customer : MonoBehaviour
 {
     public RecipeBook recipeBook;
     public Shaker shaker;
+    
+    public GameObject DialogueUI;
+    public GameObject TextUI;
 
     public enum DifficultyStages
     {
@@ -20,7 +25,7 @@ public class Customer : MonoBehaviour
     public TMP_Text correctOrderText;
     public TMP_Text wrongOrderText;
     public TMP_Text greetingText;
-    public TMP_Text customerOrderDialogtext;
+    //public TMP_Text customerOrderDialogtext;
 
     public int correctOrders;
     public int wrongOrders;
@@ -34,6 +39,11 @@ public class Customer : MonoBehaviour
     }
     public OrderStatus orderStatus;
     public CustomerAnim customerAnim;
+    [Header("Audio")]
+    private AudioSource Audio;
+    public AudioClip happySpeak;
+    public AudioClip startSpeak;
+    public AudioClip sadSpeak;
 
     public List<string> greetingList = new List<string> {
         "Hello, can I have a",
@@ -55,6 +65,7 @@ public class Customer : MonoBehaviour
 
     void Start()
     {
+        DialogueUI.SetActive(false);
         difficultyStage = DifficultyStages.stage1;
         orderStatus = OrderStatus.noOrder;
 
@@ -66,27 +77,18 @@ public class Customer : MonoBehaviour
         correctOrderText = GameObject.Find("correct orders").GetComponent<TMP_Text>();
         wrongOrderText = GameObject.Find("wrong orders").GetComponent<TMP_Text>();
         greetingText = GameObject.Find("Greeting").GetComponent<TMP_Text>();
-        customerOrderDialogtext = GameObject.Find("Customer Order Dialog").GetComponent<TMP_Text>();
+        Audio = GetComponent<AudioSource>();
 
         difficultyStageText.text = "Difficulty Stage: " + difficultyStage;
         Debug.Log("Customer system initialized in " + gameObject.name);
     }
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.F4))
-        {
-            OrderDrink();
-            Debug.Log("Generating new drink order.");
-        }
-
-        difficultyStageText.text = "Difficulty Stage: " + difficultyStage;
-        correctOrderText.text = "Correct Orders: " + correctOrders;
-        wrongOrderText.text = "Wrong Orders: " + wrongOrders;
-    }
-
     public void OrderDrink()
     {
+        Audio.PlayOneShot(startSpeak);
+        TextUI.SetActive(true);
+        DialogueUI.SetActive(true);
+
         if (recipeBook == null)
         {
             Debug.LogError("RecipeBook reference not set on Customer!");
@@ -104,34 +106,34 @@ public class Customer : MonoBehaviour
         }
 
         string greeting = GenerateGreeting(greetingList);
-        greetingText.text = greeting;
 
         int index = Random.Range(0, allDrinks.Count);
         currentDrinkOrder = allDrinks[index];
         orderStatus = OrderStatus.inProgress;
 
         currentOrderText.text = "Customer Order: " + currentDrinkOrder;
-        customerOrderDialogtext.text = currentDrinkOrder + ".";
+        greetingText.text =$"{greeting} <wave>{currentDrinkOrder}</wave>.";
 
         Debug.Log("Customer ordered: " + currentDrinkOrder);
-
         customerAnim.nextCustomer();
-        Debug.Log("Called function to call next customer");
+        //Debug.Log("Called function to call next customer");
     }
 
     public void OrderResult(bool correct)
     {
         if (correct)
         {
+            Audio.PlayOneShot(happySpeak);
             correctOrders++;
             Debug.Log("Customer received the correct drink!");
         }
         else
         {
+            Audio.PlayOneShot(sadSpeak);
             wrongOrders++;
             Debug.Log("Customer received the wrong drink!");
         }
-
+        TextUI.SetActive(false);
         correctOrderText.text = "Correct Orders: " + correctOrders;
         wrongOrderText.text = "Wrong Orders: " + wrongOrders;
     }
@@ -149,6 +151,19 @@ public class Customer : MonoBehaviour
 
         int randomIndex = Random.Range(0, list.Count);
         return list[randomIndex];
+    }
+    public void PlayHappyText()
+    {
+        string randomText = orderHappy[Random.Range(0, orderHappy.Count)];
+        Debug.Log("Play Happy Text");
+        greetingText.text = randomText;
+    }
+
+    public void PlaySadText()
+    {
+        string randomText = orderSad[Random.Range(0, orderSad.Count)];
+        Debug.Log("Play Sad Text");
+        greetingText.text = randomText;
     }
 
 }

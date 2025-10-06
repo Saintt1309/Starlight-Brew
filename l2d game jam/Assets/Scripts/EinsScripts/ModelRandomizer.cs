@@ -4,6 +4,7 @@ using Live2D.Cubism.Core;
 public class ModelRandomizer : MonoBehaviour
 {
     public CubismModel model;
+    public Customer customer;
 
     // Store references to parameters
     public CubismParameter param;
@@ -44,4 +45,10 @@ public class ModelRandomizer : MonoBehaviour
     public void SetParam2(float value) => param2.Value = value;
     public void SetParam3(int value) => param3.Value = value;
     public void SetParam4(int value) => param4.Value = value;
+
+    public void generateMenu()
+    {
+        Debug.Log("Generate Menu Called");
+        customer.OrderDrink();
+    }
 }

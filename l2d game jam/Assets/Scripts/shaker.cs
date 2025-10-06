@@ -6,6 +6,9 @@ using Unity.VisualScripting;
 
 public class Shaker : MonoBehaviour
 {
+    public GameObject DialogueUI;
+    
+    [Space(10)]
     private List<BottleData> bottles = new List<BottleData>();
 
     public TMP_Text shakerContentsText;
@@ -23,7 +26,7 @@ public class Shaker : MonoBehaviour
     }
     public CompareResult compareResult;
     public CustomerAnim customerAnim;
-     public AudioSource audioSource;
+    public AudioSource audioSource;
     public AudioClip serveClip;
     public AudioClip throwClip;
     public AudioClip mixClip;
@@ -197,10 +200,10 @@ public class Shaker : MonoBehaviour
             customer.OrderResult(true);
 
             customerAnim.customerHappy();
-
-            customer.OrderDrink();
-
+            DialogueUI.SetActive(false);
             emptyShaker();
+
+            customer.PlayHappyText();
         }
         else
         {
@@ -211,10 +214,10 @@ public class Shaker : MonoBehaviour
             Debug.Log("Wrong Order!");
 
             customer.OrderResult(false);
-
             customerAnim.customerSad();
-
-            customer.OrderDrink();
+            DialogueUI.SetActive(false);
+            emptyShaker();
+            customer.PlaySadText();
         }
     }
 }
