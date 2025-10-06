@@ -112,6 +112,7 @@ public class Customer : MonoBehaviour
     public void OnMouseDown()
     {
         shaker.serve();
+        
     }
 
 

@@ -15,3 +15,4 @@ MonoBehaviour:
   bottleName: Steamer
   effects: []
   texture: {fileID: -5632520461846452943, guid: 094c192112f8f114cb22ae8b6526498b, type: 3}
+  clickSound: {fileID: 8300000, guid: 20afaf301757d134d88210906dfa6a03, type: 3}

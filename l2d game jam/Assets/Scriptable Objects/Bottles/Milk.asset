@@ -15,3 +15,4 @@ MonoBehaviour:
   bottleName: Milk
   effects: []
   texture: {fileID: 8837320190152085206, guid: 498fabc8b06b043439205dbf0f680a2e, type: 3}
+  clickSound: {fileID: 8300000, guid: 72b27ba9a3787c040a998ab629829cd4, type: 3}

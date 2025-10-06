@@ -15,3 +15,4 @@ MonoBehaviour:
   bottleName: Coffee
   effects: []
   texture: {fileID: -6477240128805386609, guid: 9406322f4b019024b92f4b4a16b6ec1a, type: 3}
+  clickSound: {fileID: 8300000, guid: 4461c60c32117df40bda076b77644102, type: 3}

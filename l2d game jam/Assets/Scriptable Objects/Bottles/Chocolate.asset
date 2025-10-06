@@ -15,3 +15,4 @@ MonoBehaviour:
   bottleName: Chocolate
   effects: []
   texture: {fileID: -1955357777780549979, guid: 743b4a8b7e9521d4faa75061518682d5, type: 3}
+  clickSound: {fileID: 8300000, guid: 4d47a8d1aa0c5744399e435f8e4c0c23, type: 3}

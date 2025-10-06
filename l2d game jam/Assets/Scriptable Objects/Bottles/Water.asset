@@ -15,3 +15,4 @@ MonoBehaviour:
   bottleName: Water
   effects: []
   texture: {fileID: -8242976508698608569, guid: 21d3027c755e5e6499d13953314b9b08, type: 3}
+  clickSound: {fileID: 8300000, guid: 72b27ba9a3787c040a998ab629829cd4, type: 3}

@@ -1,6 +1,8 @@
 using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
+using UnityEngine.Analytics;
+using Unity.VisualScripting;
 
 public class Shaker : MonoBehaviour
 {
@@ -21,12 +23,18 @@ public class Shaker : MonoBehaviour
     }
     public CompareResult compareResult;
     public CustomerAnim customerAnim;
+     public AudioSource audioSource;
+    public AudioClip serveClip;
+    public AudioClip throwClip;
+    public AudioClip mixClip;
     void Start()
     {
         shakerContentsText = GameObject.Find("shaker contents").GetComponent<TMP_Text>();
         mixedDrinkText = GameObject.Find("mixed drink").GetComponent<TMP_Text>();
         shakerStatusText = GameObject.Find("shaker status").GetComponent<TMP_Text>();
         previousOrderStatusText = GameObject.Find("previous order status").GetComponent<TMP_Text>();
+
+        audioSource = GetComponent<AudioSource>();
 
         contentsDisplay();
         currentlyMadeDrink = null;
@@ -42,6 +50,7 @@ public class Shaker : MonoBehaviour
         if (selectedBottle != null && currentlyMadeDrink == null)
         {
             addBottles(selectedBottle.bottleData);
+            audioSource.PlayOneShot(selectedBottle.bottleData.clickSound);
 
             selectedBottle.Deselect();
             Bottle.currentlySelectedBottle = null;
@@ -88,6 +97,7 @@ public class Shaker : MonoBehaviour
         shakerStatusText.text = "Shaker emptied.";
         Debug.Log("Shaker cleared");
         contentsDisplay();
+
     }
 
     public void mixDrink()
@@ -103,6 +113,7 @@ public class Shaker : MonoBehaviour
 
         if (identifiedDrink != "Unknown Drink")
         {
+            audioSource.PlayOneShot(mixClip);
             currentlyMadeDrink = identifiedDrink;
             mixedDrinkText.text = "Mixed Drink: " + currentlyMadeDrink;
             shakerStatusText.text = "Successfully mixed: " + currentlyMadeDrink;
@@ -136,17 +147,18 @@ public class Shaker : MonoBehaviour
         {
             case "Mix Area":
                 mixDrink();
+
                 Debug.Log("Mixing Drinks");
                 break;
 
             case "Trash Area":
+                if (bottles.Count > 0 || string.IsNullOrEmpty(currentlyMadeDrink) == false)
+                {
+                    audioSource.PlayOneShot(throwClip);
+                }
+
                 emptyShaker();
                 Debug.Log("Throwing Drinks");
-                break;
-
-            case "Serve Area":
-                serve();
-                Debug.Log("Serving Drink");
                 break;
         }
     }
@@ -176,6 +188,7 @@ public class Shaker : MonoBehaviour
 
         if (currentlyMadeDrink == customer.currentDrinkOrder)
         {
+            audioSource.PlayOneShot(serveClip);
             compareResult = CompareResult.match;
             previousOrderStatusText.text = "Previous Order Status: Match";
             shakerStatusText.text = "Correct drink served!";
@@ -191,6 +204,7 @@ public class Shaker : MonoBehaviour
         }
         else
         {
+            audioSource.PlayOneShot(serveClip);
             compareResult = CompareResult.noMatch;
             previousOrderStatusText.text = "Previous Order Status: No Match";
             shakerStatusText.text = "Wrong drink served!";

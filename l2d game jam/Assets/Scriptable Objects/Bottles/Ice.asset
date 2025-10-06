@@ -15,3 +15,4 @@ MonoBehaviour:
   bottleName: Ice
   effects: []
   texture: {fileID: 697820393307772196, guid: 3cf8f541e05d52f4fbc35a6d94556d84, type: 3}
+  clickSound: {fileID: 8300000, guid: d12d000969772ad43876e7a8291f6523, type: 3}

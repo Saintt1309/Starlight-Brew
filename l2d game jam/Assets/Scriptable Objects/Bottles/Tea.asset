@@ -15,3 +15,4 @@ MonoBehaviour:
   bottleName: Tea
   effects: []
   texture: {fileID: 5129325561024467102, guid: ed2049c179d5cfa4094a4be94d07ee4e, type: 3}
+  clickSound: {fileID: 8300000, guid: 4461c60c32117df40bda076b77644102, type: 3}

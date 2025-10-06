@@ -15,3 +15,4 @@ MonoBehaviour:
   bottleName: Syrup
   effects: []
   texture: {fileID: -5614393744052955127, guid: 1ce6f07475503934d81c3187100b8c75, type: 3}
+  clickSound: {fileID: 8300000, guid: 4eef44bbbed48fe49aca52a44ac55d10, type: 3}
