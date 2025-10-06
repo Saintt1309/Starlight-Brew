@@ -43,7 +43,7 @@ public class DragNDrop : MonoBehaviour
             }
         }
         collider2d.enabled = true;
-        transform.position = new Vector3(-2f, -3.5f, 0f);
+        transform.position = new Vector3(-1.8f, -3.14f, 0f);
     }
 
     Vector3 MouseWorldPosition()
