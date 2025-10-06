@@ -19,6 +19,8 @@ public class Customer : MonoBehaviour
     public TMP_Text difficultyStageText;
     public TMP_Text correctOrderText;
     public TMP_Text wrongOrderText;
+    public TMP_Text greetingText;
+    public TMP_Text customerOrderDialogtext;
 
     public int correctOrders;
     public int wrongOrders;
@@ -33,6 +35,24 @@ public class Customer : MonoBehaviour
     public OrderStatus orderStatus;
     public CustomerAnim customerAnim;
 
+    public List<string> greetings = new List<string> {
+        "Hello, can I have a",
+        "Hi, I'd like a",
+        "Hey, let me get a"
+        };
+
+    public List<string> orderHappy = new List<string> {
+        "Thank you so much.",
+        "Yay, thanks.",
+        "Oh my god, thank you."
+        };
+
+    public List<string> orderSad = new List<string> {
+        "This isn't what I ordered.",
+        "What is this?",
+        "Um, no thank you."
+        };
+
     void Start()
     {
         difficultyStage = DifficultyStages.stage1;
@@ -45,6 +65,8 @@ public class Customer : MonoBehaviour
         difficultyStageText = GameObject.Find("difficulty stage").GetComponent<TMP_Text>();
         correctOrderText = GameObject.Find("correct orders").GetComponent<TMP_Text>();
         wrongOrderText = GameObject.Find("wrong orders").GetComponent<TMP_Text>();
+        greetingText = GameObject.Find("Greeting").GetComponent<TMP_Text>();
+        customerOrderDialogtext = GameObject.Find("Customer Order Dialog").GetComponent<TMP_Text>();
 
         difficultyStageText.text = "Difficulty Stage: " + difficultyStage;
         Debug.Log("Customer system initialized in " + gameObject.name);
@@ -81,11 +103,16 @@ public class Customer : MonoBehaviour
             return;
         }
 
+        string greeting = GenerateGreeting(greetings);
+        greetingText.text = greeting;
+
         int index = Random.Range(0, allDrinks.Count);
         currentDrinkOrder = allDrinks[index];
         orderStatus = OrderStatus.inProgress;
 
         currentOrderText.text = "Customer Order: " + currentDrinkOrder;
+        customerOrderDialogtext.text = currentDrinkOrder + ".";
+
         Debug.Log("Customer ordered: " + currentDrinkOrder);
 
         customerAnim.nextCustomer();
@@ -112,8 +139,16 @@ public class Customer : MonoBehaviour
     public void OnMouseDown()
     {
         shaker.serve();
-        
+
     }
 
+    string GenerateGreeting(List<string> list)
+    {
+        if (list == null || list.Count == 0)
+            return null;
+
+        int randomIndex = Random.Range(0, list.Count);
+        return list[randomIndex];
+    }
 
 }
