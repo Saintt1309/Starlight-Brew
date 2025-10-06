@@ -6454,6 +6454,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e23066d7f6cfa354d91d0033239622a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Live2D.Cubism::Live2D.Cubism.Framework.CubismParameterStore
+  DisableAutoSaveRestore: 1
 --- !u!114 &3976357894164104715
 MonoBehaviour:
   m_ObjectHideFlags: 0

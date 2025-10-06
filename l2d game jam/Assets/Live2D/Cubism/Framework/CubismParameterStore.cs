@@ -1,93 +1,56 @@
-﻿/**
- * Copyright(c) Live2D Inc. All rights reserved.
- *
- * Use of this source code is governed by the Live2D Open Software license
- * that can be found at https://www.live2d.com/eula/live2d-open-software-license-agreement_en.html.
- */
-
-
-using Live2D.Cubism.Core;
+﻿using Live2D.Cubism.Core;
 using UnityEngine;
 
 namespace Live2D.Cubism.Framework
 {
     /// <summary>
-    /// Cubism parameter store.
+    /// Cubism parameter store, modified to allow runtime parameter changes.
     /// </summary>
     public class CubismParameterStore : MonoBehaviour, ICubismUpdatable
     {
-        /// <summary>
-        /// Parameters cache.
-        /// </summary>
         private CubismParameter[] DestinationParameters { get; set; }
-
-        /// <summary>
-        /// Parts cache.
-        /// </summary>
         private CubismPart[] DestinationParts { get; set; }
 
-        /// <summary>
-        /// For storage parameters value.
-        /// </summary>
         private float[] _parameterValues;
-
-        /// <summary>
-        /// For storage parts opacity.
-        /// </summary>
         private float[] _partOpacities;
 
-        /// <summary>
-        /// Model has cubism update controller component.
-        /// </summary>
         [HideInInspector]
         public bool HasUpdateController { get; set; }
 
-
-
         /// <summary>
-        /// Called by cubism update controller. Order to invoke OnLateUpdate.
+        /// Allow disabling save/restore logic manually.
         /// </summary>
-        public int ExecutionOrder
-        {
-            get { return CubismUpdateExecutionOrder.CubismParameterStoreSaveParameters; }
-        }
+        [Tooltip("If true, this script will NOT overwrite runtime parameter changes.")]
+        public bool DisableAutoSaveRestore = true;
 
-        /// <summary>
-        /// Called by cubism update controller. Needs to invoke OnLateUpdate on Editing.
-        /// </summary>
-        public bool NeedsUpdateOnEditing
-        {
-            get { return false; }
-        }
 
+        public int ExecutionOrder => CubismUpdateExecutionOrder.CubismParameterStoreSaveParameters;
+
+        public bool NeedsUpdateOnEditing => false;
 
         public void Refresh()
         {
-            if (DestinationParameters == null)
+            var model = this.FindCubismModel();
+            if (model == null)
             {
-                DestinationParameters = this.FindCubismModel().Parameters;
+                Debug.LogWarning("[CubismParameterStore] No CubismModel found.");
+                return;
             }
 
-            if (DestinationParts == null)
-            {
-                DestinationParts = this.FindCubismModel().Parts;
-            }
+            DestinationParameters ??= model.Parameters;
+            DestinationParts ??= model.Parts;
 
-            // Get cubism update controller.
             HasUpdateController = (GetComponent<CubismUpdateController>() != null);
 
-            SaveParameters();
+            if (!DisableAutoSaveRestore)
+            {
+                SaveParameters();
+            }
         }
 
-        /// <summary>
-        /// Called by cubism update controller. Updates controller.
-        /// </summary>
-        /// <remarks>
-        /// Make sure this method is called after any animations are evaluated.
-        /// </remarks>
         public void OnLateUpdate()
         {
-            if (!HasUpdateController)
+            if (!HasUpdateController || DisableAutoSaveRestore)
             {
                 return;
             }
@@ -95,86 +58,64 @@ namespace Live2D.Cubism.Framework
             SaveParameters();
         }
 
-
-
-        /// <summary>
-        /// Save model parameters value and parts opacity.
-        /// </summary>
         public void SaveParameters()
         {
-            // Fail silently...
-            if(!enabled)
-            {
-                return;
-            }
+            if (!enabled) return;
 
-            // save parameters value
-            if(DestinationParameters != null && _parameterValues == null)
+            if (DestinationParameters != null && _parameterValues == null)
             {
                 _parameterValues = new float[DestinationParameters.Length];
             }
 
-            if(_parameterValues != null)
+            if (_parameterValues != null)
             {
-                for(var i = 0; i < _parameterValues.Length; ++i)
+                for (var i = 0; i < _parameterValues.Length; ++i)
                 {
                     _parameterValues[i] = DestinationParameters[i].Value;
                 }
             }
 
-            // save parts opacity
-            if(DestinationParts != null && _partOpacities == null)
+            if (DestinationParts != null && _partOpacities == null)
             {
                 _partOpacities = new float[DestinationParts.Length];
             }
 
-            if(_partOpacities != null)
+            if (_partOpacities != null)
             {
-                for(var i = 0; i < _partOpacities.Length; ++i)
+                for (var i = 0; i < _partOpacities.Length; ++i)
                 {
                     _partOpacities[i] = DestinationParts[i].Opacity;
                 }
             }
         }
 
-        /// <summary>
-        /// Restore model parameters value and parts opacity.
-        /// </summary>
         public void RestoreParameters()
         {
-            // Fail silently...
-            if(!enabled)
+            if (!enabled || DisableAutoSaveRestore)
             {
                 return;
             }
 
-            // restore parameters value
-            if(_parameterValues != null)
+            if (_parameterValues != null)
             {
-                for(var i = 0; i < _parameterValues.Length; ++i)
+                for (var i = 0; i < _parameterValues.Length; ++i)
                 {
                     DestinationParameters[i].OverrideValue(_parameterValues[i]);
                 }
             }
 
-            // restore parts opacity
-            if(_partOpacities != null)
+            if (_partOpacities != null)
             {
-                for(var i = 0; i < _partOpacities.Length; ++i)
+                for (var i = 0; i < _partOpacities.Length; ++i)
                 {
                     DestinationParts[i].Opacity = _partOpacities[i];
                 }
             }
         }
 
-        /// <summary>
-        /// Called by Unity.
-        /// </summary>
         private void OnEnable()
         {
-            // Initialize cache.
             Refresh();
         }
-
     }
 }
