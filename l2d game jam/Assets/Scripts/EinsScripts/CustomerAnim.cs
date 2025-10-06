@@ -31,7 +31,9 @@ public class CustomerAnim : MonoBehaviour
     }
     public void nextCustomer()
     {
+        Debug.Log("Generating next customer (CustomerAnime script)");
         anim.SetTrigger("NewPlayer");
+        Debug.Log("Next Customer Generated");
     }
 
 }

@@ -16,4 +16,5 @@ public class BottleData : ScriptableObject
     public effects[] effects;
 
     public Sprite texture;
+    public AudioClip clickSound;
 }

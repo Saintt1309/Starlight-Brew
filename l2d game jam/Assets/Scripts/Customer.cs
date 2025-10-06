@@ -31,6 +31,7 @@ public class Customer : MonoBehaviour
         inProgress
     }
     public OrderStatus orderStatus;
+    public CustomerAnim customerAnim;
 
     void Start()
     {
@@ -86,6 +87,9 @@ public class Customer : MonoBehaviour
 
         currentOrderText.text = "Customer Order: " + currentDrinkOrder;
         Debug.Log("Customer ordered: " + currentDrinkOrder);
+
+        customerAnim.nextCustomer();
+        Debug.Log("Called function to call next customer");
     }
 
     public void OrderResult(bool correct)
@@ -109,4 +113,6 @@ public class Customer : MonoBehaviour
     {
         shaker.serve();
     }
+
+
 }

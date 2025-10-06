@@ -20,7 +20,7 @@ public class Shaker : MonoBehaviour
         noMatch
     }
     public CompareResult compareResult;
-
+    public CustomerAnim customerAnim;
     void Start()
     {
         shakerContentsText = GameObject.Find("shaker contents").GetComponent<TMP_Text>();
@@ -86,7 +86,7 @@ public class Shaker : MonoBehaviour
         currentlyMadeDrink = null;
         mixedDrinkText.text = "Mixed Drink: ";
         shakerStatusText.text = "Shaker emptied.";
-        Debug.Log("🗑️ Shaker cleared");
+        Debug.Log("Shaker cleared");
         contentsDisplay();
     }
 
@@ -182,7 +182,10 @@ public class Shaker : MonoBehaviour
             Debug.Log("Correct Order!");
 
             customer.OrderResult(true);
-            customer.OrderDrink(); // generate next order
+
+            customerAnim.customerHappy();
+
+            customer.OrderDrink();
 
             emptyShaker();
         }
@@ -194,6 +197,10 @@ public class Shaker : MonoBehaviour
             Debug.Log("Wrong Order!");
 
             customer.OrderResult(false);
+
+            customerAnim.customerSad();
+
+            customer.OrderDrink();
         }
     }
 }
