@@ -35,7 +35,7 @@ public class Customer : MonoBehaviour
     public OrderStatus orderStatus;
     public CustomerAnim customerAnim;
 
-    public List<string> greetings = new List<string> {
+    public List<string> greetingList = new List<string> {
         "Hello, can I have a",
         "Hi, I'd like a",
         "Hey, let me get a"
@@ -103,7 +103,7 @@ public class Customer : MonoBehaviour
             return;
         }
 
-        string greeting = GenerateGreeting(greetings);
+        string greeting = GenerateGreeting(greetingList);
         greetingText.text = greeting;
 
         int index = Random.Range(0, allDrinks.Count);
